@@ -1,0 +1,24 @@
+---
+- hosts: venky
+  user: ansible
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - name: date/time stamp 
+     raw: date > /home/ansible/start1.log
+   - name: Install the vsftpd packages
+     yum: pkg=vsftpd state=present
+     notify: Restarted vsftpd
+   - name: Install httpd packages
+     yum: pkg=httpd state=present
+     notify: Restarted httpd
+   - name: Installed packages
+     raw: yum list installed > /home/ansible/installed.log
+  handlers:
+   - name: Restarted vsftpd 
+     action: service name=vsftpd state=restarted
+   - name: Restarted httpd
+     action: service name=httpd state=restarted
+
+  

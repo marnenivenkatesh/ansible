@@ -1,0 +1,15 @@
+---
+- hosts: venky
+  user: ansible
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  vars_prompt:
+    - name: pkname
+      prompt: Enter the package name
+  tasks:
+    - name: Install https packages
+      action: yum name='{{pkname}}' state=installed
+ 
+
+  

@@ -1,0 +1,16 @@
+---
+- hosts: all
+  user: ansible
+  sudo: yes
+  connection: ssh
+  gather_facts: no
+  tasks:
+   - name: Install https packages on Centos
+     command: yum install httpd -y
+     when: ansible_os_family == "CentOS"
+   - name: Install httpd packages on redhat
+     command: yum install httpd -y
+     when: ansible_os_family == "RedHat"
+   - name: Install httpd packages on Debian
+     command: apt-get install apache2 -y
+     when: ansible_os_family == "Debian"
